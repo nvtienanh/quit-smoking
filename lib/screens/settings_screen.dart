@@ -47,13 +47,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   saveData() async {
-    if (pricePerCigaratte == null ||
-        dailyCigarattes == null ||
-        currency == null) return false;
+    if (pricePerCigaratte == null || dailyCigarattes == null) return false;
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setDouble("pricePerCigaratte", pricePerCigaratte);
     pref.setInt("dailycigarattes", dailyCigarattes);
-    pref.setString("currency", currency);
+    pref.setString("currency", "₫");
     pref.setString("startTime", stopDate.toIso8601String());
     Navigator.pop(context);
   }
@@ -102,28 +100,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SizedBox(
               height: getProportionateScreenHeight(15),
             ),
-            FittedBox(
-              child: DropdownButton<String>(
-                value: currency ?? null,
-                hint: Text(
-                  langs[lang]["welcome"]["choosecurrency"],
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2
-                      .copyWith(fontSize: getProportionateScreenWidth(26)),
-                ),
-                items: currencyList.map((Map value) {
-                  return DropdownMenuItem<String>(
-                    value: value["symbol"],
-                    child: new Text("${value["name"]} ${value["symbol"]}"),
-                  );
-                }).toList(),
-                onChanged: (p) {
-                  currency = p;
-                  setState(() {});
-                },
-              ),
-            ),
+            // FittedBox(
+            //   child: DropdownButton<String>(
+            //     value: currency ?? null,
+            //     hint: Text(
+            //       langs[lang]["welcome"]["choosecurrency"],
+            //       style: Theme.of(context)
+            //           .textTheme
+            //           .bodyText2
+            //           .copyWith(fontSize: getProportionateScreenWidth(26)),
+            //     ),
+            //     items: currencyList.map((Map value) {
+            //       return DropdownMenuItem<String>(
+            //         value: value["symbol"],
+            //         child: new Text("${value["name"]} ${value["symbol"]}"),
+            //       );
+            //     }).toList(),
+            //     onChanged: (p) {
+            //       currency = p;
+            //       setState(() {});
+            //     },
+            //   ),
+            // ),
             SizedBox(
               height: getProportionateScreenHeight(15),
             ),
@@ -142,27 +140,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SizedBox(
                   width: 10,
                 ),
-                OutlineButton(
-                  padding: EdgeInsets.symmetric(horizontal: 50),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    side: BorderSide(
+                        color: Theme.of(context).primaryColor, width: 2),
+                  ),
                   onPressed: () => _pickDate(context),
                   child: Text(
                     "${langs[lang]["settings"]["change"]}",
                     textAlign: TextAlign.center,
                   ),
-                  borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor, width: 2),
                 ),
               ],
             ),
             Expanded(
               child: Text(""),
             ),
-            OutlineButton(
-              padding: EdgeInsets.symmetric(horizontal: 50),
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 50),
+                side:
+                    BorderSide(color: Theme.of(context).primaryColor, width: 2),
+              ),
               onPressed: () => saveData(),
               child: Text(langs[lang]["settings"]["save"]),
-              borderSide:
-                  BorderSide(color: Theme.of(context).primaryColor, width: 2),
             )
           ],
         ),

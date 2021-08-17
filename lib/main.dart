@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           );
         },
         debugShowCheckedModeBanner: false,
-        title: 'Quit Smoking',
+        title: 'Bỏ hút thuốc',
         theme: themeData(context),
         home: SplashScreen(),
         darkTheme: darkThemeData(context),

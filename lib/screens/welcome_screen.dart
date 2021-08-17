@@ -46,8 +46,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     if (pricePerCigaratte == null ||
         dailycigarattes == null ||
         reason == null ||
-        reason.length == 0 ||
-        currency == null) return false;
+        reason.length == 0) return false;
     setState(() {
       starting = true;
     });
@@ -58,7 +57,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       pref.setString("startTime", stopDate.toIso8601String());
       pref.setDouble("pricePerCigaratte", pricePerCigaratte);
       pref.setInt("dailycigarattes", dailycigarattes);
-      pref.setString("currency", currency);
+      pref.setString("currency", "₫");
       pref.setString("reason", jsonEncode(reason));
 
       Navigator.of(context).pushReplacement(
@@ -189,28 +188,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               SizedBox(
                 height: getProportionateScreenHeight(15),
               ),
-              FittedBox(
-                child: DropdownButton<String>(
-                  value: currency ?? null,
-                  hint: Text(
-                    langs[lang]["welcome"]["choosecurrency"],
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText2
-                        .copyWith(fontSize: getProportionateScreenWidth(26)),
-                  ),
-                  items: currencyList.map((Map value) {
-                    return DropdownMenuItem<String>(
-                      value: value["symbol"],
-                      child: new Text("${value["name"]} ${value["symbol"]}"),
-                    );
-                  }).toList(),
-                  onChanged: (p) {
-                    currency = p;
-                    setState(() {});
-                  },
-                ),
-              ),
+              // FittedBox(
+              //   child: DropdownButton<String>(
+              //     value: currency ?? null,
+              //     hint: Text(
+              //       langs[lang]["welcome"]["choosecurrency"],
+              //       style: Theme.of(context)
+              //           .textTheme
+              //           .bodyText2
+              //           .copyWith(fontSize: getProportionateScreenWidth(26)),
+              //     ),
+              //     items: currencyList.map((Map value) {
+              //       return DropdownMenuItem<String>(
+              //         value: value["symbol"],
+              //         child: new Text("${value["name"]} ${value["symbol"]}"),
+              //       );
+              //     }).toList(),
+              //     onChanged: (p) {
+              //       currency = p;
+              //       setState(() {});
+              //     },
+              //   ),
+              // ),
               SizedBox(
                 height: getProportionateScreenHeight(15),
               ),
@@ -229,15 +228,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   SizedBox(
                     width: 10,
                   ),
-                  OutlineButton(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      side: BorderSide(
+                          color: Theme.of(context).primaryColor, width: 2),
+                    ),
                     onPressed: () => _pickDate(context),
                     child: Text(
                       "${langs[lang]["settings"]["change"]}",
                       textAlign: TextAlign.center,
                     ),
-                    borderSide: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 2),
                   ),
                 ],
               ),
@@ -352,8 +353,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         if (reason.length != 0 && index == 0 ||
                             (index == 1 &&
                                 !(pricePerCigaratte == null ||
-                                    dailycigarattes == null ||
-                                    currency == null))) index += 1;
+                                    dailycigarattes == null))) index += 1;
                       });
                     },
                     icon: Icon(
