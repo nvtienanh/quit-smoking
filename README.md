@@ -19,5 +19,5 @@ An app I originally made for my father to help him quit smoking. Helps you see h
 
 # Available On
 
-[<img width="300" src="screens/google-play-badge.png"/>](https://play.google.com/store/apps/details?id=com.jmsc.quitsmoke)
+[<img width="300" src="screens/google-play-badge.png"/>](https://play.google.com/store/apps/details?id=com.adtsolutions.quitsmoke)
 
